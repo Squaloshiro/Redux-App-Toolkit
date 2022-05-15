@@ -11,14 +11,8 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const user = await signInWithEmailAndPassword(auth, loginEmail.current.value, loginPassword.current.value);
-      console.log("------------------------------------");
-      console.log(user);
-      console.log("------------------------------------");
+      await signInWithEmailAndPassword(auth, loginEmail.current.value, loginPassword.current.value);
     } catch (error) {
-      console.log("------------------------------------");
-      console.log(error.message);
-      console.log("------------------------------------");
       setError(true);
     }
   };

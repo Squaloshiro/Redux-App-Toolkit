@@ -19,9 +19,7 @@ const SignUp = () => {
           window.location.reload();
         });
     } catch (error) {
-      console.log("------------------------------------");
       console.log(error.message);
-      console.log("------------------------------------");
     }
   };
 
