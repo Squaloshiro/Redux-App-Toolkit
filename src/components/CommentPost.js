@@ -3,10 +3,13 @@ import React, { useState, useRef } from "react";
 import { auth, db } from "../utils/firebase.config";
 import { doc, updateDoc } from "firebase/firestore";
 import CommentCard from "./CommentCard";
+import { useDispatch } from "react-redux";
+import { addComment } from "../features/post.slice";
 
 const CommentPost = ({ post }) => {
   const [user, setUser] = useState(null);
   const anserContent = useRef();
+  const dispatch = useDispatch();
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -33,8 +36,10 @@ const CommentPost = ({ post }) => {
       ];
     }
 
-    updateDoc(doc(db, "posts", post.id), { comments: data });
-    anserContent.current.value = "";
+    updateDoc(doc(db, "posts", post.id), { comments: data }).then(() => {
+      dispatch(addComment([post.id, data]));
+      anserContent.current.value = "";
+    });
   };
 
   return (
